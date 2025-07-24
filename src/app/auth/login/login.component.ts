@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class LoginComponent {
   email = '';
   password = '';
+  errorMsg = ''
 
   constructor(private auth: AuthService, private router: Router) {}
 
@@ -20,7 +21,9 @@ export class LoginComponent {
         this.auth.storeToken(res.token);
         this.router.navigate(['/']);
       },
-      error: err => alert(err.error.message)
+      error: (err) => {
+        this.errorMsg = err.error.message || 'Login failed';
+      }
     })
   }
 }
